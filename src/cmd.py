@@ -21,7 +21,8 @@ def generic(f):
 accumulate = generic
 value = generic
 storage = generic
-flow = generic
+control_flow = generic
+inputs = generic
 
 # Create introspection to retrieve
 # decorators
@@ -63,32 +64,32 @@ class Commands:
 
     def parse(self, **kwargs):
         try:
-            arg = kwargs['arg'][0]
-            val = kwargs['arg'][1:3]
+            self._arg = kwargs['arg'][0]
+            self._val = int(kwargs['arg'][1:3])
         except KeyError:
             pass
-        if arg == "9":
-            arg = kwargs['arg']
+        if self._arg == "9":
+            self._arg = kwargs['arg']
         try:
-            return self._syntax[arg]
+            return self._syntax[self._arg]
         except:
             return
 
     @accumulate
     def __add(self, acc, add) -> int:
-        return acc + add
+        acc._value += add
 
     @accumulate
     def __sub(self, acc, sub) -> int:
-        return self.__add(acc, -1 * sub)
+        self.__add(acc, -1 * sub)
 
     @storage
-    def __sta(self, addr):
-        pass
+    def __sta(self, acc, storage):
+        storage._spaces[self._val] = acc._value
 
     @storage
-    def __lda(self, addr):
-        pass
+    def __lda(self, acc, storage):
+        acc._value = storage._spaces[self._val]
 
     @storage
     def __bra(self):
@@ -102,8 +103,10 @@ class Commands:
     def __brp(self):
         pass
 
-    def __inp(self):
-        pass
+    @inputs
+    def __inp(self, acc, input: int = 0):
+        print(f"[CMD] Saving {input} to accumulator...")
+        acc._value = input
 
     def __out(self):
         pass

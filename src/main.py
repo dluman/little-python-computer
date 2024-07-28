@@ -27,11 +27,17 @@ def main() -> None:
     inputs = parts.Inputs(cliarg.optional.inputs)
     agent = Agent(inputs, storage)
     # Step through instruction list, translate to
-    # functions
+    # functions; TODO: Remove the agent?
     for inst in agent._program:
         cmd = commands.parse(arg = agent.step())
-        print(get_signature(Commands))
-        print(cmd)
-
+        arg_types = get_signature(Commands)[cmd.__name__]
+        if 'inputs' in arg_types:
+            cmd(acc, inputs._values.pop(0))
+        if 'accumulate' in arg_types:
+            pass
+        if 'storage' in arg_types:
+            cmd(acc, storage)
+    print(f"ACCUMULATOR VALUE:\t{acc._value}")
+    print(f"STORAGE OVERVIEW:\t{storage._spaces}")
 if __name__ == "__main__":
     main()
