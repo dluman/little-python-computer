@@ -31,6 +31,7 @@ def main() -> None:
     for inst in agent._program:
         cmd = commands.parse(arg = agent.step())
         print(get_signature(Commands))
+        print(cmd)
 
 if __name__ == "__main__":
     main()

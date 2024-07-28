@@ -1,6 +1,7 @@
 import ast
 import inspect
 
+from functools import wraps
 # Decoration functionality taken from the SO:
 # https://stackoverflow.com/questions/3232024/introspection-to-get-decorator-names-on-a-method
 
@@ -12,6 +13,7 @@ import inspect
 # function signatures
 
 def generic(f):
+    @wraps(f)
     def wrapper(*args, **kwargs):
         return f(*args, **kwargs)
     return wrapper
