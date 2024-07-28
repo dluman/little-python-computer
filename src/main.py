@@ -1,6 +1,7 @@
 import sys
 import parts
 
+from cmd import Commands
 from agent import Agent
 from arglite import parser as cliarg
 
@@ -18,11 +19,13 @@ def main() -> None:
     storage = parts.Storage(data)
     for inst in storage._program:
         print(inst)
+    # Prepare the ISA
+    commands = Commands()
     # Get inputs from command line API, should
     # convert to a tuple if supplied with
     # comma-separated list
     inputs = parts.Inputs(cliarg.optional.inputs)
-    agent = Agent(inputs, storage)
+    agent = Agent(inputs, storage, commands)
     # Step through instruction list
     for addr, val in enumerate(storage._program):
         print(addr)
