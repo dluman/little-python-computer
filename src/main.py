@@ -2,7 +2,6 @@ import sys
 import parts
 
 from cmd import *
-from agent import Agent
 from arglite import parser as cliarg
 
 def main() -> None:
@@ -25,16 +24,15 @@ def main() -> None:
     # convert to a tuple if supplied with
     # comma-separated list
     inputs = parts.Inputs(cliarg.optional.inputs)
-    agent = Agent(inputs, storage)
     # Step through instruction list, translate to
-    # functions; TODO: Remove the agent?
-    for inst in agent._program:
-        cmd = commands.parse(arg = agent.step())
+    # functions
+    for inst in list(storage._spaces):
+        cmd = commands.parse(arg = inst)
         arg_types = get_signature(Commands)[cmd.__name__]
         if 'inputs' in arg_types:
             cmd(acc, inputs._values.pop(0))
         if 'accumulate' in arg_types:
-            pass
+            cmd(acc, storage)
         if 'storage' in arg_types:
             cmd(acc, storage)
     print(f"ACCUMULATOR VALUE:\t{acc._value}")

@@ -64,6 +64,8 @@ class Commands:
 
     def parse(self, **kwargs):
         try:
+            if kwargs['arg'] == None:
+                self._syntax[0]()
             self._arg = kwargs['arg'][0]
             self._val = int(kwargs['arg'][1:3])
         except KeyError:
@@ -76,12 +78,14 @@ class Commands:
             return
 
     @accumulate
-    def __add(self, acc, add) -> int:
+    def __add(self, acc, storage) -> int:
+        add = storage._spaces[self._val]
         acc._value += add
 
     @accumulate
-    def __sub(self, acc, sub) -> int:
-        self.__add(acc, -1 * sub)
+    def __sub(self, acc, storage) -> int:
+        sub = storage._spaces[self._val]
+        acc._value -= sub
 
     @storage
     def __sta(self, acc, storage):

@@ -1,11 +1,17 @@
+import re
 from collections import deque
 
 class Storage:
 
     def __init__(self, instructions):
-        self._program = (instruction for instruction in instructions)
-        self._counter = 0
+        # Split into line numbers and instructions
+        self._program = (
+            re.split(
+                r"\s+|\t",
+                instruction
+            ) for instruction in instructions)
         self.__initialize_storage()
+        self._counter = 0
 
     def __initialize_storage(self):
         # This implementation follows the accepted solution from SO:
@@ -13,6 +19,8 @@ class Storage:
         self._spaces = deque(maxlen=100)
         for _ in range(100):
             self._spaces.append(None)
+        for instruction in self._program:
+            self._spaces[int(instruction[0]) - 1] = instruction[1]
 
 class Accumulator:
 
