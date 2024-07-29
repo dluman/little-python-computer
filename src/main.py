@@ -26,10 +26,11 @@ def main() -> None:
     inputs = parts.Inputs(cliarg.optional.inputs)
     # Step through instruction list, translate to
     # functions
-    for inst in list(storage._spaces):
-        cmd = commands.parse(arg = inst)
+    for _ in list(storage._spaces):
+        cmd = commands.parse(arg = storage.retrieve(storage._counter))
         arg_types = get_signature(Commands)[cmd.__name__]
         if 'inputs' in arg_types:
+            print(cmd)
             cmd(acc, inputs._values.pop(0))
         if 'accumulate' in arg_types:
             cmd(acc, storage)

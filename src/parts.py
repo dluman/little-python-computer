@@ -22,6 +22,9 @@ class Storage:
         for instruction in self._program:
             self._spaces[int(instruction[0]) - 1] = instruction[1]
 
+    def retrieve(self, addr):
+        return self._spaces[addr]
+
 class Accumulator:
 
     def __init__(self):
