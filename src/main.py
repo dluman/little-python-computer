@@ -27,7 +27,9 @@ def main() -> None:
     # Step through instruction list, translate to
     # functions
     for _ in list(storage._spaces):
-        cmd = commands.parse(arg = storage.retrieve(storage._counter))
+        cmd = commands.parse(
+            arg = storage.retrieve(storage._counter)
+        )
         arg_types = get_signature(Commands)[cmd.__name__]
         if 'inputs' in arg_types:
             print(cmd)

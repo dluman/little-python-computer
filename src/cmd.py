@@ -15,7 +15,7 @@ from functools import wraps
 def generic(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        if f.__name__ not in ["__inp", "__bra", "__brz", "__brp"]:
+        if f.__name__ not in ["__inp","__bra", "__brz", "__brp"]:
             args[2]._counter += 1
         elif f.__name__.startswith("__b"):
             print("branch!")
