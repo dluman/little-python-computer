@@ -102,12 +102,18 @@ class Commands:
         storage._counter = self._val - 1
 
     @storage
-    def __brz(self):
-        pass
+    def __brz(self, acc, storage):
+        if acc._value == 0:
+            storage._counter = self.val - 1
+        else:
+            storage._counter += 1
 
     @storage
     def __brp(self):
-        pass
+        if acc.value > 0:
+            storage._counter = self.val - 1
+        else:
+            storage._counter += 1
 
     @inputs
     def __inp(self, acc, storage, input: int = 0):
@@ -115,7 +121,7 @@ class Commands:
 
     def __out(self, acc, storage):
         print(acc._value)
-        print(storage._counter)
+        storage._counter += 1
 
     @halt
     def __hlt(self, acc, storage):

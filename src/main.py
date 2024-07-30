@@ -37,7 +37,7 @@ def main() -> None:
         cmd = commands.parse(
             arg = storage.retrieve(storage._counter)
         )
-        print(cmd)
+
         arg_types = get_signature(Commands)[cmd.__name__]
 
         if 'inputs' in arg_types:
