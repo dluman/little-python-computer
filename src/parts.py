@@ -1,4 +1,5 @@
 import re
+import sys
 from collections import deque
 
 class Storage:
@@ -23,6 +24,8 @@ class Storage:
             self._spaces[int(instruction[0]) - 1] = instruction[1]
 
     def retrieve(self, addr):
+        if self._spaces[addr] == None:
+            sys.exit(1)
         return self._spaces[addr]
 
 class Accumulator:

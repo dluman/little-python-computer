@@ -1,3 +1,4 @@
+import sys
 import ast
 import inspect
 
@@ -15,10 +16,8 @@ from functools import wraps
 def generic(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        if f.__name__ not in ["__inp","__bra", "__brz", "__brp"]:
+        if not f.__name__.startswith("__b"):
             args[2]._counter += 1
-        elif f.__name__.startswith("__b"):
-            print("branch!")
         return f(*args, **kwargs)
     return wrapper
 
@@ -27,6 +26,7 @@ value = generic
 storage = generic
 control_flow = generic
 inputs = generic
+halt = generic
 
 # Create introspection to retrieve
 # decorators
@@ -68,8 +68,6 @@ class Commands:
 
     def parse(self, **kwargs):
         try:
-            if kwargs['arg'] == None:
-                self._syntax[0]()
             self._arg = kwargs['arg'][0]
             self._val = int(kwargs['arg'][1:3])
         except KeyError:
@@ -100,8 +98,8 @@ class Commands:
         acc._value = storage._spaces[self._val]
 
     @storage
-    def __bra(self):
-        pass
+    def __bra(self, acc, storage):
+        storage._counter = self._val - 1
 
     @storage
     def __brz(self):
@@ -112,12 +110,13 @@ class Commands:
         pass
 
     @inputs
-    def __inp(self, acc, input: int = 0):
-        print(f"[CMD] Saving {input} to accumulator...")
+    def __inp(self, acc, storage, input: int = 0):
         acc._value = input
 
-    def __out(self):
-        pass
+    def __out(self, acc, storage):
+        print(acc._value)
+        print(storage._counter)
 
-    def __hlt(self):
+    @halt
+    def __hlt(self, acc, storage):
         sys.exit(0)
