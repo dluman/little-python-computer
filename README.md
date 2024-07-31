@@ -19,3 +19,11 @@ another paper computer, the [CARDIAC](https://en.wikipedia.org/wiki/CARDboard_Il
 |`8xx`          |`BRP`               |`BRANCH IF POSITIVE`| Verifies `Accumulator` value is greater than `0`; if so, set `Program Counter` to value `xx`, prepare to execute value in `xx` |`No` |
 |`901`          |`INP`               |`INPUT`     |Read a single value fromw waiting input, replace `Accumulator` value|`Yes` |
 |`902`          |`OUT`               |`OUTPUT`    |Output the current value of the `Accumulator`|`No` |
+
+## Using the program
+
+Invoke the package via the CLI script: `lpc example.lpc --inputs 2,3`
+
+Here, add the command flag `--inputs` after the name of the script followed by a comma-separated list of values to include as 
+inputs to the machine. The program will parse the correct input when encountering the `901` instruction. Think of it like
+a stack, except it's `FIFO` rather than `LIFO`. So, not really a stack.

@@ -1,7 +1,7 @@
 import sys
-import parts
 
-from cmd import *
+from .parts import *
+from .cmd import *
 from arglite import parser as cliarg
 
 def main() -> None:
@@ -17,10 +17,10 @@ def main() -> None:
         data = [val.strip() for val in fh.readlines()]
 
     # Initialize accumulator
-    acc = parts.Accumulator()
+    acc = Accumulator()
 
     # Set up storage for individual instructions
-    storage = parts.Storage(data)
+    storage = Storage(data)
 
     # Prepare the ISA
     commands = Commands()
@@ -28,7 +28,7 @@ def main() -> None:
     # Get inputs from command line API, should
     # convert to a tuple if supplied with
     # comma-separated list
-    inputs = parts.Inputs(cliarg.optional.inputs)
+    inputs = Inputs(cliarg.optional.inputs)
 
     # Step through instruction list, translate to
     # functions
