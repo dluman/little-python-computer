@@ -86,12 +86,12 @@ class Commands:
 
     @accumulate
     def __add(self, acc, storage) -> int:
-        add = storage._spaces[self._val]
+        add = int(storage._spaces[self._val])
         acc._value += add
 
     @accumulate
     def __sub(self, acc, storage) -> int:
-        sub = storage._spaces[self._val]
+        sub = int(storage._spaces[self._val])
         acc._value -= sub
 
     @storage
@@ -109,14 +109,14 @@ class Commands:
     @storage
     def __brz(self, acc, storage):
         if acc._value == 0:
-            storage._counter = self.val - 1
+            storage._counter = self._val - 1
         else:
             storage._counter += 1
 
     @storage
-    def __brp(self):
-        if acc.value > 0:
-            storage._counter = self.val - 1
+    def __brp(self, acc, storage):
+        if acc._value > 0:
+            storage._counter = self._val - 1
         else:
             storage._counter += 1
 

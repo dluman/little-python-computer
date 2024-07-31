@@ -36,4 +36,6 @@ class Accumulator:
 class Inputs:
 
     def __init__(self, inputs):
+        if type(inputs) == int:
+            inputs = [inputs]
         self._values = list(inputs)
