@@ -109,14 +109,14 @@ class Commands:
     @storage
     def __brz(self, acc, storage):
         if acc._value == 0:
-            storage._counter = self._val - 1
+            storage._counter = self._val
         else:
             storage._counter += 1
 
     @storage
     def __brp(self, acc, storage):
         if acc._value > 0:
-            storage._counter = self._val - 1
+            storage._counter = self._val
         else:
             storage._counter += 1
 
