@@ -1,4 +1,5 @@
 001     901 @ Read starting value from input to Accumulator
-002     412 @ Shift two
-003     902
-004     000
+002     402 @ Shift 2 right
+003     410 @ Shift 1 left
+004     902 @ Output value of Accumulator
+005     000 @ Halt

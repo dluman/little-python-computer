@@ -62,4 +62,11 @@ The following program uses `BRP` and `BRZ` to perform a countdown from any given
 
 #### Shifting
 
-
+Routine below shifts a number (such as `200`) right `2` times, `1` left to produce a value like (e.g. `2`):
+```
+001     901 @ Read starting value from input to Accumulator
+002     402 @ Shift 2 right
+003     410 @ Shift 1 left
+004     902 @ Output value of Accumulator
+005     000 @ Halt
+```
