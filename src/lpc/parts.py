@@ -12,7 +12,7 @@ class Storage:
                 instruction
             ) for instruction in instructions)
         self.__initialize_storage()
-        self._counter = 0
+        self._counter = 1
 
     def __initialize_storage(self):
         # This implementation follows the accepted solution from SO:
@@ -21,7 +21,7 @@ class Storage:
         for _ in range(100):
             self._spaces.append(None)
         for instruction in self._program:
-            self._spaces[int(instruction[0]) - 1] = instruction[1]
+            self._spaces[int(instruction[0])] = instruction[1]
 
     def retrieve(self, addr):
         if self._spaces[addr] == None:

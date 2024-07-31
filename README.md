@@ -31,6 +31,10 @@ a stack, except it's `FIFO` rather than `LIFO`. So, not really a stack.
 
 ### Implementation-specific details
 
+General note: all programs _must_ terminate using a `000` (`HLT`) instruction.
+
+#### Inputs
+
 The following program adds any two numbers from input:
 ```
 1    901    @ Read one value from input to Accumulator
@@ -41,4 +45,17 @@ The following program adds any two numbers from input:
 49   902    @ Output the sum stored in the Accumulator
 50   000    @ Halt
 ```
-All programs must finish with a `000` (`HLT`) instruction.
+
+#### Branching
+
+The following program uses `BRP` and `BRZ` to perform a countdown from any given input:
+```
+001     901 @ Read starting value from input to Accumulator
+002     350 @ Store value in memory space 50
+003     902 @ 
+004     251
+005     740
+006     803
+040     000
+052     001
+
