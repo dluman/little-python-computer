@@ -13,6 +13,9 @@ from functools import wraps
 # Template decorators to characterize
 # function signatures
 
+# Bonus: this functionality is now codified in the graffito module:
+# https://github.com/dluman/graffito
+
 def generic(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -27,6 +30,7 @@ storage = generic
 control_flow = generic
 inputs = generic
 halt = generic
+manipulate = generic
 
 # Create introspection to retrieve
 # decorators
@@ -57,6 +61,7 @@ class Commands:
             "1": self.__add,
             "2": self.__sub,
             "3": self.__sta,
+            "4": self.__sft,
             "5": self.__lda,
             "6": self.__bra,
             "7": self.__brz,
@@ -114,6 +119,10 @@ class Commands:
             storage._counter = self.val - 1
         else:
             storage._counter += 1
+
+    @manipulate
+    def __sft(self):
+        pass
 
     @inputs
     def __inp(self, acc, storage, input: int = 0):
