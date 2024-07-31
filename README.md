@@ -1,5 +1,7 @@
 # The Little Python Computer
 
+[![PyPI version](https://img.shields.io/pypi/v/little-python-computer)](https://pypi.org/project/little-python-computer/)
+
 A python implementation of the [Little Man Computer](https://en.wikipedia.org/wiki/Little_man_computer) meant for
 use in CI/CD (i.e. GitHub Actions) to verify student programs using the LMC ISA. This implementation uses the 
 traditional instruction set plus one additional instruction meant to emulate bit-shifting (as implemented using
