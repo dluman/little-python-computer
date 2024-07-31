@@ -7,6 +7,10 @@ use in CI/CD (i.e. GitHub Actions) to verify student programs using the LMC ISA.
 traditional instruction set plus one additional instruction meant to emulate bit-shifting (as implemented using
 another paper computer, the [CARDIAC](https://en.wikipedia.org/wiki/CARDboard_Illustrative_Aid_to_Computation)).
 
+## Instal
+
+This project is available via `PyPI`: `python -m pip install little-python-computer`.
+
 ## ISA
 
 |Numeric syntax |Mnemonic equivalent |Instruction |Description                                                   |Desctructive |
