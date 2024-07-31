@@ -52,10 +52,14 @@ The following program uses `BRP` and `BRZ` to perform a countdown from any given
 ```
 001     901 @ Read starting value from input to Accumulator
 002     350 @ Store value in memory space 50
-003     902 @ 
-004     251
-005     740
-006     803
-040     000
-052     001
+003     902 @ Output value currently in Accumulator
+004     251 @ Subtract a bootstrapped 1 in memory location 51
+005     740 @ Branch to end if Accumulator value is 0
+006     803 @ Branch to 003 if Accumulator value is positive
+040     000 @ Halt
+051     001 @ Bootstrap a 1
+```
+
+#### Shifting
+
 

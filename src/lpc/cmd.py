@@ -104,7 +104,7 @@ class Commands:
 
     @storage
     def __bra(self, acc, storage):
-        storage._counter = self._val - 1
+        storage._counter = self._val
 
     @storage
     def __brz(self, acc, storage):
