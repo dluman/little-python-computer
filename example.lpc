@@ -1,8 +1,4 @@
 001     901 @ Read starting value from input to Accumulator
-002     350 @ Store value in memory space 50
-003     902 @ 
-004     251
-005     740
-006     803
-040     000
-051     001
+002     412 @ Shift two
+003     902
+004     000

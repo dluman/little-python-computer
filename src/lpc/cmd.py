@@ -121,11 +121,28 @@ class Commands:
             storage._counter += 1
 
     @manipulate
-    def __sft(self):
-        pass
+    def __sft(self, acc, storage):
+        acc._value = str(acc._value).zfill(3)
+        self._val = str(self._val).zfill(2)
+        # Left shift first
+        if int(self._val[0]) > 0:
+            shifts = int(self._val[0])
+            for _ in range(shifts):
+                acc._value = f"{acc._value}0"
+            acc._value = acc._value[-3:]
+        # Right shift second
+        if int(self._val[1]) > 0:
+            shifts = int(self._val[1])
+            for _ in range(shifts):
+                acc._value = f"0{acc._value}"
+            acc._value = acc._value[0:3]
+        acc._value = int(acc._value)
 
     @inputs
     def __inp(self, acc, storage, input: int = 0):
+        if(input > 999):
+            print("Input larger than 3 digits.")
+            sys.exit(1)
         acc._value = input
 
     def __out(self, acc, storage):
