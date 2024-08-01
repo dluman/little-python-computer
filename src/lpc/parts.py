@@ -22,6 +22,7 @@ class Storage:
             self._spaces.append(None)
         for instruction in self._program:
             self._spaces[int(instruction[0])] = instruction[1]
+        self._spaces[0] = "001"
 
     def retrieve(self, addr):
         if self._spaces[addr] == None:

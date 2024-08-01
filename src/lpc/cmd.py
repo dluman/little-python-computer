@@ -21,6 +21,8 @@ def generic(f):
     def wrapper(*args, **kwargs):
         if not f.__name__.startswith("__b"):
             args[2]._counter += 1
+        else:
+            args[2]._spaces[99] = args[2]._counter + 1
         return f(*args, **kwargs)
     return wrapper
 
@@ -140,8 +142,12 @@ class Commands:
 
     @inputs
     def __inp(self, acc, storage, input: int = 0):
-        if(input > 999):
-            print("Input larger than 3 digits.")
+        try:
+            int(input)
+            if input > 999:
+                raise
+        except:
+            print("Invalid input.")
             sys.exit(1)
         acc._value = input
 
@@ -152,3 +158,4 @@ class Commands:
     @halt
     def __hlt(self, acc, storage):
         sys.exit(0)
+        return False

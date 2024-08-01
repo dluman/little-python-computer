@@ -3,6 +3,21 @@ import sys
 from .parts import *
 from .cmd import *
 from arglite import parser as cliarg
+from itertools import islice
+from rich.console import Console
+from rich.table import Table
+
+def debug_log(acc, storage) -> None:
+    console = Console()
+    table = Table(title = "Memory Table", row_styles = ["dim",""])
+    for _ in range(0, 100, 10):
+        table.add_column(f"{_} - {_ + 9}")
+    for _ in range(0, 10):
+        row = list(storage._spaces)[_::10]
+        row = [str(val).zfill(3) if val else "---" for val in row]
+        table.add_row(*row)
+    console.print(table)
+    console.print(f"ACC VALUE: {acc._value}")
 
 def main() -> None:
 
@@ -22,6 +37,10 @@ def main() -> None:
     # Set up storage for individual instructions
     storage = Storage(data)
 
+    # Trigger debug output if debug flag set
+    if cliarg.optional.debug:
+        debug_log(acc, storage)
+
     # Prepare the ISA
     commands = Commands()
 
@@ -32,7 +51,7 @@ def main() -> None:
 
     # Step through instruction list, translate to
     # functions
-    for _ in list(storage._spaces):
+    while True:
 
         cmd = commands.parse(
             arg = storage.retrieve(storage._counter)
@@ -43,7 +62,12 @@ def main() -> None:
         if 'inputs' in arg_types:
             cmd(acc, storage, inputs._values.pop(0))
         else:
-            cmd(acc, storage)
+            status = cmd(acc, storage)
+            if status == False:
+                break
+
+    if cliarg.optional.debug:
+        debug_log(acc, storage)
 
 if __name__ == "__main__":
     main()
