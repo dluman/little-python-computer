@@ -13,7 +13,7 @@ This project is available via `PyPI`: `python -m pip install little-python-compu
 
 ## ISA
 
-|Numeric syntax |Mnemonic equivalent |Instruction |Description                                                   |Desctructive |
+|Numeric syntax |Mnemonic equivalent |Instruction |Description                                                   |Destructive |
 |:--------------|:-------------------|:-----------|:-------------------------------------------------------------|:------------|
 |`1xx`          |`ADD`               |`ADD`       |Adds a number stored in a memory location `xx` to the `Accumulator` |`Yes`  |
 |`2xx`          |`SUB`               |`SUBTRACT`  |Subtracts a number stored in a memory location `xx` from the `Accmumulator` |`Yes` |
