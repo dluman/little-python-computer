@@ -17,7 +17,7 @@ def debug_log(acc, storage) -> None:
         row = [str(val).zfill(3) if val else "---" for val in row]
         table.add_row(*row)
     console.print(table)
-    console.print(f"ACC VALUE: {acc._value}")
+    console.print(f"ACC VALUE: {acc.value}")
 
 def main() -> None:
 

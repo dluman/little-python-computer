@@ -33,6 +33,26 @@ class Accumulator:
 
     def __init__(self):
         self._value = 0
+        self._carry= 0
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        value = int(value)
+        self._value = int(self._value)
+        if self._value > 9999:
+            print("[ERROR] OVERFLOW!")
+            sys.exit(1)
+        if self._value >= 1000:
+            self._carry = str(self.value)[0]
+        self._value = value
+
+    @value.getter
+    def x(self):
+        return self._value
 
 class Inputs:
 

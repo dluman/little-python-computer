@@ -89,20 +89,20 @@ class Commands:
     @accumulate
     def __add(self, acc, storage) -> int:
         add = int(storage._spaces[self._val])
-        acc._value += add
+        acc.value += add
 
     @accumulate
     def __sub(self, acc, storage) -> int:
         sub = int(storage._spaces[self._val])
-        acc._value -= sub
+        acc.value -= sub
 
     @storage
     def __sta(self, acc, storage):
-        storage._spaces[self._val] = acc._value
+        storage._spaces[self._val] = acc.value
 
     @storage
     def __lda(self, acc, storage):
-        acc._value = storage._spaces[self._val]
+        acc.value = storage._spaces[self._val]
 
     @storage
     def __bra(self, acc, storage):
@@ -110,35 +110,35 @@ class Commands:
 
     @storage
     def __brz(self, acc, storage):
-        if acc._value == 0:
+        if acc.value == 0:
             storage._counter = self._val
         else:
             storage._counter += 1
 
     @storage
     def __brp(self, acc, storage):
-        if acc._value > 0:
+        if acc.value > 0:
             storage._counter = self._val
         else:
             storage._counter += 1
 
     @manipulate
     def __sft(self, acc, storage):
-        acc._value = str(acc._value).zfill(3)
+        acc.value = str(acc.value).zfill(3)
         self._val = str(self._val).zfill(2)
         # Left shift first
         if int(self._val[0]) > 0:
             shifts = int(self._val[0])
             for _ in range(shifts):
-                acc._value = f"{acc._value}0"
-            acc._value = acc._value[-3:]
+                acc.value = f"{acc.value}0"
+            acc.value = acc.value[-3:]
         # Right shift second
         if int(self._val[1]) > 0:
             shifts = int(self._val[1])
             for _ in range(shifts):
-                acc._value = f"0{acc._value}"
-            acc._value = acc._value[0:3]
-        acc._value = int(acc._value)
+                acc.value = f"0{acc.value}"
+            acc.value = acc.value[0:3]
+        acc.value = int(acc.value)
 
     @inputs
     def __inp(self, acc, storage, input: int = 0):
@@ -149,10 +149,10 @@ class Commands:
         except:
             print("Invalid input.")
             sys.exit(1)
-        acc._value = input
+        acc.value = input
 
     def __out(self, acc, storage):
-        print(acc._value)
+        print(acc.value)
         storage._counter += 1
 
     @halt
