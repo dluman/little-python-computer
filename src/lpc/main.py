@@ -62,12 +62,11 @@ def main() -> None:
         if 'inputs' in arg_types:
             cmd(acc, storage, inputs._values.pop(0))
         else:
+            if cliarg.optional.debug:
+                debug_log(acc, storage)
             status = cmd(acc, storage)
             if status == False:
                 break
-
-    if cliarg.optional.debug:
-        debug_log(acc, storage)
 
 if __name__ == "__main__":
     main()
