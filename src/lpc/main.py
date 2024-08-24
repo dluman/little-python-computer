@@ -48,19 +48,27 @@ def main() -> None:
     # convert to a tuple if supplied with
     # comma-separated list
     inputs = Inputs(cliarg.optional.inputs)
-
+    len_inputs = len(inputs._values)
     # Step through instruction list, translate to
     # functions
     while True:
 
         cmd = commands.parse(
+            line = storage._counter,
             arg = storage.retrieve(storage._counter)
         )
 
         arg_types = get_signature(Commands)[cmd.__name__]
 
         if 'inputs' in arg_types:
-            cmd(acc, storage, inputs._values.pop(0))
+            try:
+                cmd(acc, storage, inputs._values.pop(0))
+            except IndexError:
+                # This is the last case to consider
+                print(f"[ERROR] Reached end of inputs.")
+                print(f"        Expected:\t{storage._expected_inputs}")
+                print(f"        Given:\t\t{len_inputs}")
+                sys.exit(1)
         else:
             if cliarg.optional.debug:
                 debug_log(acc, storage)

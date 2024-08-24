@@ -75,15 +75,19 @@ class Commands:
 
     def parse(self, **kwargs):
         try:
+            self._line = kwargs['line']
             self._arg = kwargs['arg'][0]
             self._val = int(kwargs['arg'][1:3])
         except KeyError:
             pass
+        except:
+            print(f"[ERROR] Invalid instruction at line {self._line}.")
         if self._arg == "9":
             self._arg = kwargs['arg']
         try:
             return self._syntax[self._arg]
         except:
+            print(f"[ERROR] Invalid instruction at line {self._line}.")
             return
 
     @accumulate
@@ -98,7 +102,7 @@ class Commands:
 
     @storage
     def __sta(self, acc, storage):
-        storage._spaces[self._val] = acc.value
+        storage._spaces[self._val] = str(acc.value)[-3:]
 
     @storage
     def __lda(self, acc, storage):
@@ -129,15 +133,17 @@ class Commands:
         # Left shift first
         if int(self._val[0]) > 0:
             shifts = int(self._val[0])
+            tmp = str(acc.value)
             for _ in range(shifts):
-                acc.value = f"{acc.value}0"
-            acc.value = acc.value[-3:]
+                tmp = f"{tmp}0"
+            acc.value = tmp[-3:]
         # Right shift second
         if int(self._val[1]) > 0:
             shifts = int(self._val[1])
+            tmp = str(acc.value)
             for _ in range(shifts):
-                acc.value = f"0{acc.value}"
-            acc.value = acc.value[0:3]
+                tmp = f"0{tmp}"
+            acc.value = tmp[0:3]
         acc.value = int(acc.value)
 
     @inputs

@@ -13,6 +13,7 @@ class Storage:
                 r"\s{2,}|\t{2,}",
                 instruction
             ) for instruction in instructions)
+        self._expected_inputs = 0
         self.__initialize_storage()
 
     def __initialize_storage(self):
@@ -24,6 +25,8 @@ class Storage:
             self._spaces.append(None)
         for instruction in self._program:
             self._spaces[int(instruction[0])] = instruction[1]
+            if instruction[1] == "901":
+                self._expected_inputs += 1
             try:
                 comment = str(instruction[2])
                 if not comment.startswith("@"):
@@ -39,6 +42,7 @@ class Storage:
 
     def retrieve(self, addr):
         if self._spaces[addr] == None:
+            print(f"[ERROR] Program ends abruptly at line {addr}. Did you meant to HALT?")
             sys.exit(1)
         return self._spaces[addr]
 
