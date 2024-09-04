@@ -128,22 +128,21 @@ class Commands:
 
     @manipulate
     def __sft(self, acc, storage):
-        acc.value = str(acc.value).zfill(3)
         self._val = str(self._val).zfill(2)
         # Left shift first
         if int(self._val[0]) > 0:
             shifts = int(self._val[0])
-            tmp = str(acc.value)
-            for _ in range(shifts):
-                tmp = f"{tmp}0"
-            acc.value = tmp[-3:]
+            tmp = str(acc.value).zfill(4)  + ('0' * shifts)
+            acc.value = tmp[-4:]
+            if shifts >= 4:
+                acc.value = 0
         # Right shift second
         if int(self._val[1]) > 0:
             shifts = int(self._val[1])
-            tmp = str(acc.value)
-            for _ in range(shifts):
-                tmp = f"0{tmp}"
-            acc.value = tmp[0:3]
+            tmp = ('0' * shifts) + str(acc.value).zfill(4)
+            acc.value = tmp[0:4]
+            if shifts >= 4:
+                acc.value = 0
         acc.value = int(acc.value)
 
     @inputs
