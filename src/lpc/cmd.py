@@ -169,6 +169,6 @@ class Commands:
     @halt
     def __hlt(self, acc, storage):
         if self._show_speed:
-            print(self._total_clock)
+            print(f"CYCLES: {self._total_clock}")
         sys.exit(0)
         return False
