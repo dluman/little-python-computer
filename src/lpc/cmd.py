@@ -58,20 +58,22 @@ def get_signature(cls):
 
 class Commands:
 
-    def __init__(self):
+    def __init__(self, show_speed: bool = False):
         self._syntax = {
-            "1": self.__add,
-            "2": self.__sub,
-            "3": self.__sta,
-            "4": self.__sft,
-            "5": self.__lda,
-            "6": self.__bra,
-            "7": self.__brz,
-            "8": self.__brp,
-            "901": self.__inp,
-            "902": self.__out,
-            "0": self.__hlt
+            "1": {"cmd": self.__add, "cycles": 3},
+            "2": {"cmd": self.__sub, "cycles": 3},
+            "3": {"cmd":self.__sta, "cycles": 1},
+            "4": {"cmd": self.__sft, "cycles": 0},
+            "5": {"cmd": self.__lda, "cycles": 2},
+            "6": {"cmd": self.__bra, "cycles": 2},
+            "7": {"cmd": self.__brz, "cycles": 2},
+            "8": {"cmd": self.__brp, "cycles": 2},
+            "901": {"cmd": self.__inp, "cycles": 1},
+            "902": {"cmd": self.__out, "cycles": 1},
+            "0": {"cmd": self.__hlt, "cycles": 0}
         }
+        self._show_speed = show_speed
+        self._total_clock = 0
 
     def parse(self, **kwargs):
         try:
@@ -85,7 +87,8 @@ class Commands:
         if self._arg == "9":
             self._arg = kwargs['arg']
         try:
-            return self._syntax[self._arg]
+            self._total_clock += self._syntax[self._arg]["cycles"]
+            return self._syntax[self._arg]["cmd"]
         except:
             print(f"[ERROR] Invalid instruction at line {self._line}.")
             return
@@ -99,6 +102,8 @@ class Commands:
     def __sub(self, acc, storage) -> int:
         sub = int(storage._spaces[self._val])
         acc.value -= sub
+        if acc.value < 0:
+            acc.value = 0
 
     @storage
     def __sta(self, acc, storage):
@@ -147,6 +152,7 @@ class Commands:
 
     @inputs
     def __inp(self, acc, storage, input: int = 0):
+        storage._expected_inputs += 1
         try:
             int(input)
             if input > 999:
@@ -162,5 +168,7 @@ class Commands:
 
     @halt
     def __hlt(self, acc, storage):
+        if self._show_speed:
+            print(self._total_clock)
         sys.exit(0)
         return False

@@ -29,7 +29,7 @@ def main() -> None:
         print("Invalid source file.")
         sys.exit(1)
     with open(src, "r") as fh:
-        data = [val.strip() for val in fh.readlines()]
+        data = [val.strip() for val in fh.readlines() if val.strip()]
 
     # Initialize accumulator
     acc = Accumulator()
@@ -42,7 +42,7 @@ def main() -> None:
         debug_log(acc, storage)
 
     # Prepare the ISA
-    commands = Commands()
+    commands = Commands(cliarg.optional.speed)
 
     # Get inputs from command line API, should
     # convert to a tuple if supplied with

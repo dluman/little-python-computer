@@ -10,7 +10,7 @@ class Storage:
         self._counter = 1
         self._program = (
             re.split(
-                r"\s{2,}|\t{2,}",
+                r"\s{2,}|\t{1,}",
                 instruction
             ) for instruction in instructions)
         self._expected_inputs = 0
@@ -25,8 +25,8 @@ class Storage:
             self._spaces.append(None)
         for instruction in self._program:
             self._spaces[int(instruction[0])] = instruction[1]
-            if instruction[1] == "901":
-                self._expected_inputs += 1
+            #if instruction[1] == "901":
+            #    self._expected_inputs += 1
             try:
                 comment = str(instruction[2])
                 if not comment.startswith("@"):
@@ -60,6 +60,8 @@ class Accumulator:
     def value(self, value):
         value = int(value)
         self._value = int(self._value)
+        if self._value < 0:
+            self._value = 0
         if self._value > 9999:
             print("[ERROR] ACCUMULATOR OVERFLOW!")
             sys.exit(1)
@@ -68,7 +70,7 @@ class Accumulator:
         self._value = value
 
     @value.getter
-    def x(self):
+    def value(self):
         return self._value
 
 class Inputs:
