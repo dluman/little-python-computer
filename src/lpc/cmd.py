@@ -141,6 +141,7 @@ class Commands:
             acc.value = tmp[-4:]
             if shifts >= 4:
                 acc.value = 0
+            self._total_clock += shifts
         # Right shift second
         if int(self._val[1]) > 0:
             shifts = int(self._val[1])
@@ -148,6 +149,7 @@ class Commands:
             acc.value = tmp[0:4]
             if shifts >= 4:
                 acc.value = 0
+            self._total_clock += shifts
         acc.value = int(acc.value)
 
     @inputs
