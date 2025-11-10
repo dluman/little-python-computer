@@ -62,6 +62,7 @@ def main() -> None:
     # convert to a tuple if supplied with
     # comma-separated list
     inputs = Inputs(cliarg.optional.inputs)
+    print(inputs)
     len_inputs = len(inputs._values)
 
     # Step through instruction list, translate to

@@ -43,7 +43,7 @@ size). This is planned, but not yet implemented as a `.pcconfig` file, existing 
 
 ## Using the program
 
-Invoke the package via the CLI script: `paperpc example.ppc --inputs 2,3`
+Invoke the package via the CLI script: `paperpc example.ppc --inputs [2,3]`
 
 Here, add the command flag `--inputs` after the name of the script followed by a comma-separated list of values to include as 
 inputs to the machine. The program will parse the correct input when encountering the `901` instruction. Think of it like
