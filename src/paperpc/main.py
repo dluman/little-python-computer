@@ -62,7 +62,6 @@ def main() -> None:
     # convert to a tuple if supplied with
     # comma-separated list
     inputs = Inputs(cliarg.optional.inputs)
-    print(inputs)
     len_inputs = len(inputs._values)
 
     # Step through instruction list, translate to
@@ -85,9 +84,9 @@ def main() -> None:
                 cmd(acc, storage, inputs._values.pop(0))
             except IndexError as e:
                 # This is the last case to consider
-                print(f"[ERROR] Reached end of inputs.")
-                print(f"        Expected:\t{storage._expected_inputs}")
-                print(f"        Given:\t\t{len_inputs}")
+                #print(f"[ERROR] Reached end of inputs.")
+                #print(f"        Expected:\t{storage._expected_inputs}")
+                #print(f"        Given:\t\t{len_inputs}")
                 sys.exit(1)
         else:
             status = cmd(acc, storage)

@@ -45,6 +45,7 @@ class Storage:
                 # Comment isn't there, so ignore
                 pass
             except:
+                print(comment)
                 print(f"[LINE {line}] Invalid comment format: not prefaced by '@'")
                 sys.exit(1)
             line += 1
